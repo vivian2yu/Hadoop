@@ -1,5 +1,3 @@
-package com.github.hadoop;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -64,7 +62,7 @@ public class WordCount {
             System.exit(2);
         }
         //配置作业名
-        Job job = new Job(conf, "word count");
+        Job job = new Job(conf, "wordcount");
         //配置作业的各个类
         job.setJarByClass(WordCount.class);
         job.setMapperClass(TokenizerMapper.class);
@@ -72,9 +70,17 @@ public class WordCount {
         job.setReducerClass(IntSumReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
-        FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
         System.exit(job.waitForCompletion(true) ? 0 : 1);
+
+
+//        JobConf conf = new JobConf(WordCount.class);
+//        conf.setJobName("wordcount");
+//        conf.setOutputKeyClass(Text.class);
+//        conf.setOutputValueClass(IntWritable.class);
+//        conf.setMapperClass(Map.class);
+//        conf
     }
 
 

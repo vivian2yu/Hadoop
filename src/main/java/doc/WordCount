@@ -1,0 +1,22 @@
+** WordCount.java   执行命令 **
+
+
+**************
+cd java/
+** 存放编译后的class文件 **
+mkdir jar
+** 多个jar命令必须写绝对路径 **
+javac -classpath ~/woft/hadoop-1.2.1/hadoop-core-1.2.1.jar:/Users/vivian/woft/hadoop-1.2.1/lib/commons-cli-1.2.jar -d jar WordCount.java
+** 打包成jar包 **
+jar -cvf wordcount.jar -C jar/ .
+
+** 在集群上创建输入文件夹 (目录创建在默认用户根目录下 可以设置）**
+~/woft/hadoop-1.2.1/bin/hadoop dfs -mkdir input
+** 在本地创建输入文件 **
+mkdir input
+file01 file02
+** 上传本地目录下的文件到集群上的input目录下 **
+~/woft/hadoop-1.2.1/bin/hadoop dfs -put ./input/file0* input
+
+** 运行WordCount程序 **
+~/woft/hadoop-1.2.1/bin/hadoop jar wordcount.jar WordCount input output
